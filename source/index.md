@@ -2,12 +2,9 @@
 title: API Reference
 
 language_tabs:
-  - shell
-  - ruby
-  - python
+  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -18,151 +15,153 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+By using existing frameworks like jQuery, MooTools, AngularJS, etc., we obtain very comprehensive frameworks, but they are way too large. The objective of jayScript is to provide a set of features without extending any internal object, keeping the framework light in space, but also in processing time.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Inspired by frameworks like underscorejs that establishes a list of useful programming functions, jayScript has come to life, having not only a list of functions that assist in the development, but also, element selectors and other features.
 
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
-# Authentication
+# Downloads
 
-> To authorize, use this code:
+<a href='http://jayscript.servehttp.com/static/js/jayScript.js'>Development Version (0.9), Uncompressed</a>
 
-```ruby
-require 'kittn'
+<a href='http://jayscript.servehttp.com/static/js/jayScript.min.js.gz'>Production Version (0.9), Minified and Gzipped</a>
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+# Function list
+
+## forEach
+
+> Array example:
+
+```javascript
+j.forEach([1, 2, 3], function(entry, index, list){
+  console.log(entry);
+  console.log(index);
+  console.log(list);
+});
 ```
 
-```python
-import 'kittn'
+> Object example:
 
-api = Kittn.authorize('meowmeowmeow')
+```javascript
+j.forEach({foo: 1, bar: 2}, function(val, key, obj){
+  console.log(val);
+  console.log(key);
+  console.log(obj);
+});
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+`j.forEach(list, iterator, [scope])`
+
+Runs through a list of elements by invoking the iterator function for each of them. This function is linked to the scope object, if any are defined. Each invocation of the iterator is made with three arguments: (element, index, list). If the list is a Javascript object, then the iterator arguments will be (value, key, list). ForEach returns the native function if it exists, and returns the original list at the end.
+
+## trim
+
+```javascript
+var trimedString = j.trim("   foo   ");
+- trimedString = "foo"
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+`j.trim(string)`
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+Returns a string with whitespaces cleaned on both sides. The trim function does not affect the initial string value.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+## trimLeft
 
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace `meowmeowmeow` with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+```javascript
+var trimedString = j.trimLeft("   foo   ");
+- trimedString = "foo   "
 ```
 
-```python
-import 'kittn'
+`j.trimLeft(string)`
 
-api = Kittn.authorize('meowmeowmeow')
-api.kittens.get()
+Returns a string with whitespaces cleaned on the left side. The TrimLeft function does not affect the initial string value.
+
+## trimRight
+
+```javascript
+var trimedString = j.trimRight("   foo   ");
+- trimedString = "   foo"
 ```
 
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+`j.trimRight(string)`
+
+Returns a string with whitespaces cleaned on the right side. The trimRight function does not affect the initial string value.
+
+## stringContains
+
+```javascript
+var contains = j.stringContains("foobar", "foo");
+- contains = true
 ```
 
-> The above command returns JSON structured like this:
+`j.stringContains(string, content)`
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+Returns true or false if a string exists within another string.
+
+## keys
+
+```javascript
+var keys = j.keys({foo: 1, bar: 2});
+- keys = ["foo", "bar"]
+```
+
+`j.keys(object)`
+
+Returns all property names of the object.
+
+## isObject
+
+```javascript
+var foo = j.isObject({});
+- foo = true
+
+var foo = j.isObject(1);
+- foo = false
+```
+
+`j.isObject(value)`
+
+Returns true if the value is an object. Notice that JavaScript arrays and functions are objects while strings and numbers are not.
+
+## loadFile
+
+```javascript
+j.loadFile([
+    {fileName:'foo.css',fileType:'css'},
+    {fileName:'jquery.js',fileType:'js'}
+  ],function(){
+    console.log("loaded");
   }
-]
+);
 ```
 
-This endpoint retrieves all kittens.
+`j.loadFile(files, callback)`
 
-### HTTP Request
+Asynchronous loader of JavaScript and css files. The first parameter must be an array of objects, each object corresponds to a file to be imported.
 
-`GET http://example.com/kittens`
+Object structure:
 
-### Query Parameters
+* fileName: name of the file.
+* fileType: type of the file (js or css).
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+## checkIfFileLoaded
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+```javascript
+console.log(j.checkIfFileLoaded('foo.css','css'));
 ```
 
-```python
-import 'kittn'
+`j.checkIfFileLoaded(filename, filetype)`
 
-api = Kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+Checks the html tag for the desired file has already been inserted.
+
+## onPageLoaded
+
+```javascript
+j.onPageLoaded(function () {
+  console.log("page loaded");
+});
 ```
 
-```shell
-curl "http://example.com/api/kittens/3"
-  -H "Authorization: meowmeowmeow"
-```
+`j.onPageLoaded(callback)`
 
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the cat to retrieve
-
+Executes a callback function after the page is read, including all images, frames and objects.
