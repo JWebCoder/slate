@@ -30,6 +30,10 @@ Inspired by frameworks like underscorejs that establishes a list of useful progr
 
 ## forEach
 
+`j.forEach(list, iterator, [scope])`
+
+Runs through a list of elements by invoking the iterator function for each of them. This function is linked to the scope object, if any are defined. Each invocation of the iterator is made with three arguments: (element, index, list). If the list is a Javascript object, then the iterator arguments will be (value, key, list). ForEach returns the native function if it exists, and returns the original list at the end.
+
 > Array example:
 
 ```javascript
@@ -50,66 +54,66 @@ j.forEach({foo: 1, bar: 2}, function(val, key, obj){
 });
 ```
 
-`j.forEach(list, iterator, [scope])`
-
-Runs through a list of elements by invoking the iterator function for each of them. This function is linked to the scope object, if any are defined. Each invocation of the iterator is made with three arguments: (element, index, list). If the list is a Javascript object, then the iterator arguments will be (value, key, list). ForEach returns the native function if it exists, and returns the original list at the end.
-
 ## trim
+
+`j.trim(string)`
+
+Returns a string with whitespaces cleaned on both sides. The trim function does not affect the initial string value.
 
 ```javascript
 var trimedString = j.trim("   foo   ");
 - trimedString = "foo"
 ```
 
-`j.trim(string)`
-
-Returns a string with whitespaces cleaned on both sides. The trim function does not affect the initial string value.
-
 ## trimLeft
+
+`j.trimLeft(string)`
+
+Returns a string with whitespaces cleaned on the left side. The TrimLeft function does not affect the initial string value.
 
 ```javascript
 var trimedString = j.trimLeft("   foo   ");
 - trimedString = "foo   "
 ```
 
-`j.trimLeft(string)`
-
-Returns a string with whitespaces cleaned on the left side. The TrimLeft function does not affect the initial string value.
-
 ## trimRight
+
+`j.trimRight(string)`
+
+Returns a string with whitespaces cleaned on the right side. The trimRight function does not affect the initial string value.
 
 ```javascript
 var trimedString = j.trimRight("   foo   ");
 - trimedString = "   foo"
 ```
 
-`j.trimRight(string)`
-
-Returns a string with whitespaces cleaned on the right side. The trimRight function does not affect the initial string value.
-
 ## stringContains
+
+`j.stringContains(string, content)`
+
+Returns true or false if a string exists within another string.
 
 ```javascript
 var contains = j.stringContains("foobar", "foo");
 - contains = true
 ```
 
-`j.stringContains(string, content)`
-
-Returns true or false if a string exists within another string.
-
 ## keys
+
+`j.keys(object)`
+
+Returns all property names of the object.
 
 ```javascript
 var keys = j.keys({foo: 1, bar: 2});
 - keys = ["foo", "bar"]
 ```
 
-`j.keys(object)`
-
-Returns all property names of the object.
-
 ## isObject
+
+`j.isObject(value)`
+
+Returns true if the value is an object. Notice that JavaScript arrays and functions are objects while strings and numbers are not.
 
 ```javascript
 var foo = j.isObject({});
@@ -119,11 +123,16 @@ var foo = j.isObject(1);
 - foo = false
 ```
 
-`j.isObject(value)`
-
-Returns true if the value is an object. Notice that JavaScript arrays and functions are objects while strings and numbers are not.
-
 ## loadFile
+
+`j.loadFile(files, callback)`
+
+Asynchronous loader of JavaScript and css files. The first parameter must be an array of objects, each object corresponds to a file to be imported.
+
+Object structure:
+
+* fileName: name of the file.
+* fileType: type of the file (js or css).
 
 ```javascript
 j.loadFile([
@@ -135,33 +144,24 @@ j.loadFile([
 );
 ```
 
-`j.loadFile(files, callback)`
-
-Asynchronous loader of JavaScript and css files. The first parameter must be an array of objects, each object corresponds to a file to be imported.
-
-Object structure:
-
-* fileName: name of the file.
-* fileType: type of the file (js or css).
-
 ## checkIfFileLoaded
-
-```javascript
-console.log(j.checkIfFileLoaded('foo.css','css'));
-```
 
 `j.checkIfFileLoaded(filename, filetype)`
 
 Checks the html tag for the desired file has already been inserted.
 
+```javascript
+console.log(j.checkIfFileLoaded('foo.css','css'));
+```
+
 ## onPageLoaded
+
+`j.onPageLoaded(callback)`
+
+Executes a callback function after the page is read, including all images, frames and objects.
 
 ```javascript
 j.onPageLoaded(function () {
   console.log("page loaded");
 });
 ```
-
-`j.onPageLoaded(callback)`
-
-Executes a callback function after the page is read, including all images, frames and objects.
