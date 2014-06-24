@@ -68,8 +68,5 @@ under the License.
       activateLanguage(lang);
       return false;
     });
-    window.onpopstate = function(event) {
-      activateLanguage(window.location.search.substr(1));
-    };
   });
 })(window);
